@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/template.xhtml">
+<ui:define name="contents" >
+	<h:form>
+		<p:spacer height="50" />
+<p:dialog widgetVar="dlg" modal="true"  hideEffect="explode"   showEffect="fadein" >
+<p:panelGrid columns="2" style="margin:auto">
+			<f:facet name="header">Employee Info</f:facet>
+			<p:outputLabel value="Employee Name"></p:outputLabel>
+			<p:inputText  value="#{mbEmployee.emp.empName}"></p:inputText>
+
+			<p:outputLabel value="Salary"></p:outputLabel>
+			<p:inputText value="#{mbEmployee.emp.empSalary}"></p:inputText>
+			<p:outputLabel value="Departments" />
+			<ui:remove>
+				<p:selectOneMenu value="#{mbEmployee.emp.hrDpt.dptId}">
+					<f:selectItem itemLabel="-" itemValue="#{null}" />
+					<f:selectItems value="#{mBDepartment.alldpt}" var="var"
+						itemLabel="#{var.dptName}" itemValue="#{var.dptId}" />
+				</p:selectOneMenu>
+ -->
+</ui:remove>
+		</p:panelGrid>
+		
+		
+		
+		</p:dialog>
+
+
+
+
+
+
+		<p:panelGrid columns="2" style="margin:auto">
+			<f:facet name="header">Employee Info</f:facet>
+			<p:outputLabel value="Employee Name"></p:outputLabel>
+			<p:inputText id="txtName" value="#{mbEmployee.emp.empName}"></p:inputText>
+
+			<p:outputLabel value="Salary"></p:outputLabel>
+			<p:inputText id="txtSalary" value="#{mbEmployee.emp.empSalary}"></p:inputText>
+			<p:outputLabel value="Departments" />
+			<ui:remove>
+				<p:selectOneMenu id="Dpt" value="#{mbEmployee.emp.hrDpt}">
+					<f:selectItem itemLabel="-" itemValue="#{null}" />
+					<f:selectItems value="#{mBDepartment.alldpt}" var="var"
+						itemLabel="#{var.dptName}" itemValue="#{var}" />
+				</p:selectOneMenu>
+ -->
+</ui:remove>
+			<f:facet name="footer">
+				<p:commandButton value="add" action="#{mbEmployee.add}"
+					process="txtName,txtSalary" update="@form" />
+
+			</f:facet>
+		</p:panelGrid>
+		<p:dataTable  value="#{mbEmployee.allEmp}" id="tbl" var="var" selection="#{mbEmployee.emp}"
+		selectionMode="single" rowKey="#{var.empId}"
+		 >
+		 <p:ajax  event="rowSelect" process="@this,tbl" update="@form"  oncomplete="dlg.show();" />
+		 
+		<p:column headerText="Name">
+		#{var.empName}
+		</p:column>
+		
+		<p:column headerText="Salary">
+		#{var.empSalary}
+		</p:column>
+		
+		<p:column headerText="Department">
+		#{var.hrDpt}
+		</p:column>
+		
+		
+		</p:dataTable>
+		
+		
+		
+		
+		
+		
+		
+
+	</h:form>
+</ui:define>
+</ui:composition>
+</html>
